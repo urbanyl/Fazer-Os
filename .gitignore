@@ -1,3 +1,7 @@
 build/
 *.img
 
+__pycache__/
+tools/__pycache__/
+*.pyc
+
