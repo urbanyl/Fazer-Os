@@ -9,13 +9,14 @@ Tu ne peux pas “lancer un OS” directement dans Windows/macOS : il faut soit 
 ### Option A — Sans installer d’outils (recommandé)
 
 1) Télécharge une image prête à démarrer (artefacts du workflow GitHub `build-image`) :
-- `fazer.vmdk` (VirtualBox)
-- `fazer.img` (image brute)
+- `fazer.iso` (Image CD/DVD bootable - le plus universel pour les VM)
+- `fazer.vmdk` (VirtualBox / VMware)
+- `fazer.img` (image disque brute)
 
 2) Démarre dans VirtualBox :
 - VM : **Other/Unknown (64-bit)**
 - **EFI/UEFI désactivé** (boot legacy/BIOS)
-- Disque : attacher `fazer.vmdk` (ou `fazer.img` via conversion)
+- Disque : attacher `fazer.vmdk` comme disque dur IDE, OU `fazer.iso` dans le lecteur CD optique.
 
 Conversion `fazer.img` → disque VirtualBox (sans Python/NASM/QEMU) :
 
