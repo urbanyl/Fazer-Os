@@ -1,24 +1,34 @@
-# Installation / exécution (sans toolchain)
+# Installation / exécution (VM)
 
-## Objectif
+## Option 1 (recommandé) : utiliser une image déjà construite
 
-Exécuter Fazer OS **sans installer** d’outils de compilation (`python`, `nasm`) ni d’outil de ligne de commande VM (`qemu`).
+Télécharge une image prête à démarrer depuis les artefacts du workflow GitHub `build-image` :
 
-## 1) Récupérer une image prête
+- `fazer.vmdk` (le plus simple pour VirtualBox)
+- `fazer.img` (image brute)
 
-Le dépôt fournit un workflow CI qui génère des images prêtes à démarrer.
+### VirtualBox
 
-- Image brute : `fazer.img`
-- Image VirtualBox : `fazer.vmdk`
+1) Crée une VM : **Other/Unknown (64-bit)**
+2) **Désactive EFI/UEFI** (boot legacy/BIOS)
+3) Disque : attache `fazer.vmdk`
+4) Démarre
 
-## 2) Démarrer avec VirtualBox
+## Option 2 : convertir une image brute sans QEMU
 
-1) Créer une nouvelle VM : **Other/Unknown (64-bit)**
-2) **Désactiver EFI/UEFI** (boot legacy/BIOS)
-3) Stockage : ajouter le disque `fazer.vmdk` (ou convertir `fazer.img` en VDI si tu préfères)
-4) Démarrer
+Si tu as `fazer.img`, VirtualBox fournit `VBoxManage` qui peut convertir une image brute en VDI/VMDK.
 
-## 3) Première utilisation
+```powershell
+./tools/vbox-make-disk.ps1 -RawImage .\fazer.img -OutDisk .\build\fazer.vdi -Format VDI
+```
+
+Optionnel : créer automatiquement la VM + attacher le disque :
+
+```powershell
+./tools/vbox-createvm.ps1 -Name FazerOS -DiskPath .\build\fazer.vdi
+```
+
+## Première utilisation
 
 Dans le shell :
 
@@ -30,7 +40,3 @@ Dans le shell :
 
 L’écran affiche aussi un bandeau en haut et une barre d’état (ticks et statut FS).
 
-## Notes importantes
-
-- Un OS ne peut pas “tourner tout seul” *dans* Windows/macOS : il faut soit une VM (VirtualBox/VMware), soit booter la machine dessus.
-- Le stockage côté noyau utilise ATA PIO (pratique en VM via IDE). Sur du matériel moderne/USB, il faudrait implémenter d’autres pilotes (non inclus pour l’instant).

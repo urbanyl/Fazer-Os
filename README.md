@@ -17,6 +17,18 @@ Tu ne peux pas “lancer un OS” directement dans Windows/macOS : il faut soit 
 - **EFI/UEFI désactivé** (boot legacy/BIOS)
 - Disque : attacher `fazer.vmdk` (ou `fazer.img` via conversion)
 
+Conversion `fazer.img` → disque VirtualBox (sans Python/NASM/QEMU) :
+
+```powershell
+./tools/vbox-make-disk.ps1 -RawImage .\fazer.img -OutDisk .\build\fazer.vdi -Format VDI
+```
+
+Créer automatiquement une VM VirtualBox et y attacher le disque :
+
+```powershell
+./tools/vbox-createvm.ps1 -Name FazerOS -DiskPath .\build\fazer.vdi
+```
+
 ### Option B — Build local (développeurs)
 
 Prérequis :
