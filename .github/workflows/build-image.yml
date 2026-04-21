@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir -p build/iso
           cp build/fazer.img build/iso/
-          xorriso -as mkisofs -R -J -V "FAZER_OS" -b fazer.img -no-emul-boot -boot-load-size 4 -boot-info-table -o build/fazer.iso build/iso/
+          xorriso -as mkisofs -R -J -V "FAZER_OS" -b fazer.img -no-emul-boot -boot-load-size 4 -o build/fazer.iso build/iso/
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
