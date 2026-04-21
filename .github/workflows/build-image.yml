@@ -1,0 +1,34 @@
+name: build-image
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make nasm qemu-utils
+
+      - name: Build raw image
+        run: |
+          make image PY=python3
+
+      - name: Convert to VMDK (VirtualBox)
+        run: |
+          qemu-img convert -f raw -O vmdk build/fazer.img build/fazer.vmdk
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: fazeros-images
+          path: |
+            build/fazer.img
+            build/fazer.vmdk
+
