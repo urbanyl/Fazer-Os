@@ -4,7 +4,6 @@
 
 Télécharge une image prête à démarrer depuis les artefacts du workflow GitHub `build-image` :
 
-- `fazer.iso` (Image CD/DVD universelle pour VM)
 - `fazer.vmdk` (Le plus simple si tu l'ajoutes comme disque dur IDE)
 - `fazer.img` (image disque brute)
 
@@ -12,9 +11,7 @@ Télécharge une image prête à démarrer depuis les artefacts du workflow GitH
 
 1) Crée une VM : **Other/Unknown (64-bit)**
 2) **Désactive EFI/UEFI** (boot legacy/BIOS)
-3) Disque :
-   - SOIT tu vas dans les réglages et tu mets `fazer.iso` dans le lecteur de disque optique (le plus simple).
-   - SOIT tu attaches `fazer.vmdk` comme disque dur.
+3) Disque : attache `fazer.vmdk` comme disque dur.
 4) Démarre
 
 ## Option 2 : convertir une image brute sans QEMU

@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y make nasm qemu-utils xorriso
+          sudo apt-get install -y make nasm qemu-utils
 
       - name: Build raw image
         run: |
@@ -24,12 +24,6 @@ jobs:
         run: |
           qemu-img convert -f raw -O vmdk build/fazer.img build/fazer.vmdk
 
-      - name: Create ISO image
-        run: |
-          mkdir -p build/iso
-          cp build/fazer.img build/iso/
-          xorriso -as mkisofs -R -J -V "FAZER_OS" -b fazer.img -no-emul-boot -boot-load-size 4 -o build/fazer.iso build/iso/
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -37,5 +31,4 @@ jobs:
           path: |
             build/fazer.img
             build/fazer.vmdk
-            build/fazer.iso
 
